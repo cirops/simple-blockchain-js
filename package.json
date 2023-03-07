@@ -1,5 +1,17 @@
 {
+  "name": "learningcoin",
+  "version": "1.0.0",
+  "main": "index.js",
+  "keywords": [],
+  "author": "cirops <cirops@gmail.com>",
+  "license": "ISC",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "start": "node src/main.js"
+  },
   "dependencies": {
     "crypto-js": "^4.1.1"
-  }
+  },
+  "devDependencies": {}
 }
