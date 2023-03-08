@@ -27,4 +27,8 @@ export class Block {
     }
     console.log(`Block mined: ${this.hash} (NONCE: ${this.nonce})`);
   }
+
+  hasValidTransactions() {
+    return this.transactions.every((tx) => tx.isValid());
+  }
 }

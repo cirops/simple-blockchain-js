@@ -1,33 +1,26 @@
+import EC from "elliptic";
 import { Blockchain } from "./entities/Blockchain.js";
 import { Transaction } from "./entities/Transaction.js";
 
+const ec = new EC.ec("secp256k1");
+
+const myKey = ec.keyFromPrivate(
+  "b8fc1bde2a548d8323a4ae582a701f39058d93aebff7f56c34a353313a66d612"
+);
+
+const myWalletAddress = myKey.getPublic("hex");
+
 const learningCoin = new Blockchain();
 
-learningCoin.createTransaction(new Transaction("address1", "address2", 100));
-learningCoin.createTransaction(new Transaction("address2", "address1", 50));
+const tx1 = new Transaction(myWalletAddress, "public key goes here", 10);
+tx1.signTransaction(myKey);
+learningCoin.addTransaction(tx1);
 
 console.log("Starting the miner...");
-learningCoin.minePendingTransactions("address3");
+learningCoin.minePendingTransactions(myWalletAddress);
 
-console.log(
-  `Address 1 balance: ${learningCoin.getBalanceOfAddress("address1")}`
-);
-console.log(
-  `Address 2 balance: ${learningCoin.getBalanceOfAddress("address2")}`
-);
-console.log(
-  `Address 3 balance: ${learningCoin.getBalanceOfAddress("address3")}`
-);
+console.log(`My balance: ${learningCoin.getBalanceOfAddress(myWalletAddress)}`);
 
-console.log("Starting the miner again...");
-learningCoin.minePendingTransactions("address3");
+learningCoin.chain[1].transactions[0].amount = 1;
 
-console.log(
-  `Address 1 balance: ${learningCoin.getBalanceOfAddress("address1")}`
-);
-console.log(
-  `Address 2 balance: ${learningCoin.getBalanceOfAddress("address2")}`
-);
-console.log(
-  `Address 3 balance: ${learningCoin.getBalanceOfAddress("address3")}`
-);
+console.log(`Is chain valid? ${learningCoin.isChainValid()}`);
