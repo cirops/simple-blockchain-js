@@ -8,7 +8,8 @@
   "description": "",
   "type": "module",
   "scripts": {
-    "start": "node src/main.js"
+    "start": "node src/main.js",
+    "key:generate": "node src/util/generateKey.js"
   },
   "dependencies": {
     "crypto-js": "^4.1.1",
